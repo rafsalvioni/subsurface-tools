@@ -36,14 +36,7 @@ function toCsv(objLine, delim=",")
 {
     let line = [];
     for (const k in objLine) {
-        let v;
-        switch (typeof objLine[k]) {
-            case 'number':
-                v = objLine[k].toLocaleString();
-                break;
-            default:
-                v = objLine[k] ? String(objLine[k]) :'';
-        }
+        let v = objLine[k] ? String(objLine[k]) :'';;
         if (v.indexOf(delim) >= 0) {
             v = '"' + v.replace('"', '""') + '"';
         }
