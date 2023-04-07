@@ -1,0 +1,38 @@
+<html>
+<head>
+	<title>Subsurface Tools: Divesites to GPX</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<script type="module" src="./bin/gpx-merge-ssrf.js" defer></script>
+</head>
+<body>
+	<nav>
+		<ul>
+			<li><a href="sites-gpx.html">Divesites To GPX</a></li>
+            <li><a href="dives-gpx.html">Dives To GPX</a></li>
+			<li><a href="ssrf-compact.html">Compact SSRF samples</a></li>
+            <li><a href="gpx-merge-ssrf.html">GPX merge SSRF</a></li>
+			<li><a href="date-fusion.html">Fusion by Date</a></li>
+		</ul>
+	</nav>
+	<header>
+		<h1>Subsurface Tools</h1>
+		<h2>GPX merge to SSRF</h2>
+	</header>
+	<p>
+		This script merges informations from GPX to Subsurface divelog. Its uses dive's start/end interval
+        to find its GPS position in GPX, creating divesites if necessary or update a existant one. It creates
+        divesites using GPX's POIs too.
+	</p>
+	<label>Put SSRF contents in field below:
+	<textarea rows="10" style="width:100%" id="ssrf"></textarea></label>
+	<br><br>
+	<label>Put GPX contents in field below:
+    <textarea rows="10" style="width:100%" id="gpx"></textarea></label>
+    <button id="redo">Re do</button>
+    <br><br>
+    <label>Result GPX:
+	<textarea rows="20" style="width:100%" id="output" readonly=""></textarea></label>
+	<button id="download">Download</button>
+
+</body>
+</html>

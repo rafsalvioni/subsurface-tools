@@ -1,0 +1,40 @@
+<html>
+<head>
+	<title>Subsurface Tools: Fusion by Date</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<script type="module" src="./bin/date-fusion.js" defer></script>
+</head>
+<body>
+	<nav>
+		<ul>
+			<li><a href="sites-gpx.html">Divesites To GPX</a></li>
+            <li><a href="dives-gpx.html">Dives To GPX</a></li>
+			<li><a href="ssrf-compact.html">Compact SSRF samples</a></li>
+            <li><a href="gpx-merge-ssrf.html">GPX merge SSRF</a></li>
+			<li><a href="date-fusion.html">Fusion by Date</a></li>
+		</ul>
+	</nav>
+	<header>
+		<h1>Subsurface Tools</h1>
+		<h2>Fusion by Date</h2>
+	</header>
+	<p>
+		This scripts makes a fusion between a data, dive sample and position. So given this data, we can cross
+		whats GPS position, depth, temperature etc. at a instant. This is util for cientific divers to do her studies.
+	</p>
+	<label>Put the dates to find (1 per line):
+	<textarea rows="10" style="width:100%" id="dates"></textarea></label>
+	<br><br>
+	<label>Put SSRF contents in field below:
+	<textarea rows="10" style="width:100%" id="ssrf"></textarea></label>
+	<br><br>
+	<label>Put GPX contents in field below:
+    <textarea rows="10" style="width:100%" id="gpx"></textarea></label>
+    <button id="redo">Re do</button>
+    <br><br>
+    <label>Result CSV:
+	<textarea rows="10" style="width:100%" id="output" readonly=""></textarea></label>
+	<button id="download">Download</button>
+
+</body>
+</html>
