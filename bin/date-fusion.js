@@ -17,12 +17,11 @@ function dateFusion(date, gpx, divelog)
         Object.assign(fus, tmp);
         pos = true;
     }
-    if (divelog && (tmp = divelog.getDiveAt(date))) {
-        let s = tmp.getSampleAt(date);
-        delete(s['time']);
-        Object.assign(fus, s);
-        if (!pos && tmp.isLocalized()) {
-            Object.assign(fus, tmp.getSpot());
+    if (divelog && (tmp = divelog.getDataAt(date))) {
+        delete(tmp.sample['time']);
+        Object.assign(fus, tmp.sample);
+        if (!pos && tmp.dive.isLocalized()) {
+            Object.assign(fus, tmp.dive.getSpot());
         }
     }
     if (first) {
@@ -61,7 +60,7 @@ function process()
         }
         first = true;
         for (const dt of dates.trim().split(/\r?\n/)) {
-            let dateTime = new Date(dt);
+            let dateTime = Date.create(dt);
             output += dateFusion(dateTime, gpx, divelog);
             first = false;
         }
