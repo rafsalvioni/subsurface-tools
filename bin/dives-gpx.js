@@ -4,9 +4,9 @@ import { download } from '../lib/utils.js';
 
 function divesToGpx(input, sample)
 {
-	let divelog = new DiveLog(input);
-	let gpx = new GpxWriter();
-	gpx.create();
+    let divelog = new DiveLog(input);
+    let gpx = new GpxWriter();
+    gpx.create();
 
     for (const dive of divelog) {
         let num = dive.getNum();
@@ -38,20 +38,20 @@ function divesToGpx(input, sample)
 
 function process()
 {
-	let input = document.getElementById('input').value;
-	let output;
-	try {
-		output = divesToGpx(input, 900, '-0300');
-	}
-	catch (e) {
-		output = `ERROR: ${e}`;
-	}
-	document.getElementById('output').value = output;
+    let input = document.getElementById('input').value;
+    let output;
+    try {
+        output = divesToGpx(input, 900, '-0300');
+    }
+    catch (e) {
+        output = `ERROR: ${e}`;
+    }
+    document.getElementById('output').value = output;
 }
 
 document.getElementById('input').addEventListener('change', process);
 document.getElementById('redo').addEventListener('click', process);
 document.getElementById('download').addEventListener('click', () => {
-	let contents = document.getElementById('output').value;
-	download(contents, 'dives.gpx');
+    let contents = document.getElementById('output').value;
+    download(contents, 'dives.gpx');
 });
