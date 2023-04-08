@@ -27,13 +27,16 @@ function divesToGpx(input, sample)
         while (n-- >= 0) {
             let dc    = dive.getSampleAt(dt); // Real depth at moment
             let depth = dc ? Math.rounds(dc.depth, 2) : dive.getDepth().mean;
-            gpx.addPos(Object.assign({}, spot, {alt: spot.alt - depth}), dt, grp);
-            dt.setTime(dt.getTime() + sample * 1000);
+            spot = Object.assign({}, spot, {alt: spot.alt - depth});
+            gpx.addPos(spot, dt, grp);
+            dt   = new Date(dt.getTime() + sample * 1000);
             dur -= sample;
         }
     }
-
-    return gpx.end();
+    if (gpx.hasContents()) {
+        return gpx.end();
+    }
+    throw 'No localized dives found';
 }
 
 function process()

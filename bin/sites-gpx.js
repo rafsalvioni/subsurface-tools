@@ -15,7 +15,10 @@ function sitesToGpx(input)
         gpx.addWayPoint(site.point);
     }
 
-    return gpx.end();
+    if (gpx.hasContents()) {
+        return gpx.end();
+    }
+    throw 'No localized sites found';
 }
 
 function process()
