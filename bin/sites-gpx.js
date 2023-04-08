@@ -6,7 +6,6 @@ function sitesToGpx(input)
 {
     let divelog = new DiveLog(input);
     let gpx = new GpxWriter();
-    gpx.create();
     
     for (const site of divelog.getSites()) {
         if (!site.point) {
