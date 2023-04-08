@@ -6,7 +6,6 @@ function divesToGpx(input, sample)
 {
     let divelog = new DiveLog(input);
     let gpx = new GpxWriter();
-    gpx.create();
 
     for (const dive of divelog) {
         let num = dive.getNum();
@@ -21,13 +20,13 @@ function divesToGpx(input, sample)
         console.log(dur, n, sample);
         let dt   = dive.getStart();
         let grp  = `Dive #${num}`;
-        let spot = dive.getSpot();
-        gpx.addWayPoint(spot);
+        let site = dive.getSpot();
+        gpx.addWayPoint(site);
 
         while (n-- >= 0) {
             let dc    = dive.getSampleAt(dt); // Real depth at moment
             let depth = dc ? Math.rounds(dc.depth, 2) : dive.getDepth().mean;
-            spot = Object.assign({}, spot, {alt: spot.alt - depth});
+            let spot  = Object.assign({}, site, {alt: site.alt - depth});
             gpx.addPos(spot, dt, grp);
             dt   = new Date(dt.getTime() + sample * 1000);
             dur -= sample;
