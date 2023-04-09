@@ -14,22 +14,25 @@ function divesToGpx(input, sample)
             continue;
         }
 
-        let dur  = dive.getDuration();
-        let n    = Math.ceil(dur / sample);
-        sample   = Math.ceil(dur / n);
-        console.log(dur, n, sample);
-        let dt   = dive.getStart();
-        let grp  = `Dive #${num}`;
-        let site = dive.getSpot();
+        let dur   = dive.getDuration();
+        let n     = Math.ceil(dur / sample); // How many tracks need?
+        sample    = Math.ceil(dur / n); // Adjust sample to better distribution
+        let site  = dive.getSpot();
+        let dt    = dive.getStart();
+        let grp   = `Dive #${num}`;
+        let depth = dive.getDepth();
         gpx.addWayPoint(site);
 
-        while (n-- >= 0) {
-            let dc    = dive.getSampleAt(dt); // Real depth at moment
-            let depth = dc ? Math.rounds(dc.depth, 2) : dive.getDepth().mean;
-            let spot  = Object.assign({}, site, {alt: site.alt - depth});
-            gpx.addPos(spot, dt, grp);
-            dt   = new Date(dt.getTime() + sample * 1000);
-            dur -= sample;
+        gpx.addPos(site, dt, grp); // Adds entry point
+        while (dur > 0) {
+            let t    = Math.min(sample, dur); // Time to add
+            console.log(grp, n--, dur, t);
+            dt       = new Date(dt.getTime() + t * 1000); // New instant
+            let dc   = dive.getSampleAt(dt); // Try to get DC's sample at instant
+            let d    = dc ? Math.rounds(dc.depth, 2) : depth.mean; // Depth at instant
+            let spot = Object.assign({}, site, {alt: site.alt - d}); // Clone site using depth
+            gpx.addPos(spot, dt, grp); // Adds a track point
+            dur     -= t;
         }
     }
     if (gpx.hasContents()) {
