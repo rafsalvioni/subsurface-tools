@@ -7,27 +7,7 @@
 <body>
 	<nav>
 		<ul>
-			<li>Export
-				<ul>
-					<li><a href="sites-gpx.html">Sites > GPX</a></li>
-					<li><a href="dives-gpx.html">Dives > GPX</a></li>
-				</ul>
-			</li>
-			<li>Import
-				<ul>
-					<li><a href="gpx-merge-ssrf.html">GPX > SSRF</a></li>
-				</ul>
-			</li>
-			<li>Conversion / Mesh
-				<ul>
-					<li><a href="date-fusion.html">Fusion by Date</a></li>
-				</ul>
-			</li>
-			<li>Operations
-				<ul>
-					<li><a href="ssrf-compact.html">Compact Samples</a></li>
-				</ul>
-			</li>
+			<li><a href="index.html">Back to Index</a></li>
 		</ul>
 	</nav>
 	<header>
@@ -35,21 +15,23 @@
 		<h2>Fusion by Date</h2>
 	</header>
 	<p>
-		This scripts makes a fusion between a data, dive sample and position. So given this data, we can cross
-		whats GPS position, depth, temperature etc. at a instant. This is util for cientific divers to do her studies.
+		This scripts makes a fusion between a date, dive sample and position. With this data, we can cross
+		whats GPS position, depth, temperature etc. at a instant. This is util for cientific divers
+		to do her studies, put exif data in midia files etc...
 	</p>
 	<label>Put the dates to find (1 per line):
-	<textarea rows="10" style="width:100%" id="dates"></textarea></label>
+	<textarea rows="10" style="width:90%" id="dates"></textarea></label>
 	<br><br>
 	<label>Put SSRF contents in field below:
-	<textarea rows="10" style="width:100%" id="ssrf"></textarea></label>
+	<textarea rows="10" style="width:90%" id="ssrf"></textarea></label>
 	<br><br>
 	<label>Put GPX contents in field below:
-    <textarea rows="10" style="width:100%" id="gpx"></textarea></label>
+    <textarea rows="10" style="width:90%" id="gpx"></textarea></label>
+	<br>
     <button id="redo">Re do</button>
     <br><br>
     <label>Result CSV:
-	<textarea rows="10" style="width:100%" id="output" readonly=""></textarea></label>
+	<textarea rows="10" style="width:90%" id="output" readonly=""></textarea></label>
 	<button id="download">Download</button>
 
 </body>
