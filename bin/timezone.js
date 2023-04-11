@@ -36,5 +36,5 @@ document.getElementById('input').addEventListener('change', process);
 document.getElementById('redo').addEventListener('click', process);
 document.getElementById('download').addEventListener('click', () => {
 	let contents = document.getElementById('output').value;
-	download(contents, 'dives-compact.ssrf');
+	download(contents, 'dives-tz.ssrf');
 });
