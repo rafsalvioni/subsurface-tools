@@ -26,7 +26,7 @@ function fixTimeZone(input, tz, replace)
     return divelog.toString();
 }
 
-const TZ_API = 'http://api.geonames.org/timezoneJSON?lat={0}&lng={1}&username=dirkhh';
+const TZ_API = '{2}//api.geonames.org/timezoneJSON?lat={0}&lng={1}&username=dirkhh';
 
 function getTimeZoneByGPS(site)
 {
@@ -41,7 +41,7 @@ function getTimeZoneByGPS(site)
         }
     };
     let point = site.getPoint();
-    let url   = TZ_API.format(point.lat, point.lon);
+    let url   = TZ_API.format(point.lat, point.lon, location.protocol);
     xhttp.open("GET", url, false);
     xhttp.send();
     return ret;
