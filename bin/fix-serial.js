@@ -6,13 +6,8 @@ function process()
 	let input = document.getElementById('input').value;
 	let output;
 	try {
-        let model  = prompt('Whats computer model? (exactly name!)', '');
-        let serial = prompt('Whats the serial number?', '');
-        if (!model || !serial) {
-            throw 'Model/Serial is required!';
-        }
 		let divelog = new DiveLog(input);
-        let stats   = divelog.addDCSerial(model, serial);
+        let stats   = divelog.fixDCSerial();
 		if (stats[0] == 0) {
 			throw `No DCs match`;
 		}

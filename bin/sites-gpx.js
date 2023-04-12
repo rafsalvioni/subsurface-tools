@@ -8,10 +8,10 @@ function sitesToGpx(input)
     let gpx = new GpxWriter();
     
     for (const site of divelog.getSites()) {
-        if (!site.point) {
+        if (!site.isLocalized()) {
             continue;
         }
-        gpx.addWayPoint(site.point);
+        gpx.addWayPoint(site.getPoint());
     }
 
     if (gpx.hasContents()) {

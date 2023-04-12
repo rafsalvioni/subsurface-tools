@@ -11,7 +11,7 @@ function ssrfCompact(input)
 		count = 0;
 		input = input.replaceAll(regex, function()
 		{
-			count   = Array.from(arguments[0].matchAll(/<sample/g)).length - 2;
+			count   += Array.from(arguments[0].matchAll(/<sample/g)).length - 2;
 			let ret = arguments[1] + '<!-- Cleaned -->' + arguments[4];
 			return ret;
 		});
@@ -24,7 +24,7 @@ function ssrfCompact(input)
 		count = 0;
 		input = input.replaceAll(regex, function()
 		{
-			count   = Array.from(arguments[0].matchAll(/<sample/g)).length - 1;
+			count   += Array.from(arguments[0].matchAll(/<sample/g)).length - 1;
 			let ret = arguments[1] + '<!-- Cleaned -->' + arguments[3];
 			return ret;
 		});
