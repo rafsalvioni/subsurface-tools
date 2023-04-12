@@ -17,7 +17,10 @@
     <p>
         By default, dives in Subsurface doesn't have timezones. It is a problem when we need to compare dates
         with another data (like GPX, for example). So, we used a trick: add a especial tag in sites/dives to indicates
-        timezone used. This script adds / replaces these tags.
+        timezone used. This script adds / replaces these tags.<br><br>
+
+        For each localized Dive Site, the timezone will be get using GPS information using a public API.
+        Otherwise, the default timezone given will be used. The same for non localized dives.
     </p>
     <label>Put SSRF contents in field below:
     <textarea rows="10" style="width:90%" id="input"></textarea></label>
