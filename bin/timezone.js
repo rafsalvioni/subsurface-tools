@@ -8,12 +8,7 @@ function fixTimeZone(input, tz, replace)
         if (!replace && site.getTimeZone()) {
             continue;
         }
-        if (site.isLocalized()) {
-            site.setTimeZone(getTimeZoneByGPS(site) ?? tz);
-        }
-        else {
-            site.setTimeZone(tz);
-        }
+        site.setTimeZone(tz);
     }
     for (const dive of divelog) {
         if (!replace && dive.getTimeZone()) {
@@ -24,27 +19,6 @@ function fixTimeZone(input, tz, replace)
         }
     }
     return divelog.toString();
-}
-
-const TZ_API = '{2}//api.geonames.org/timezoneJSON?lat={0}&lng={1}&username=dirkhh';
-
-function getTimeZoneByGPS(site)
-{
-    var xhttp = new XMLHttpRequest();
-    var ret;
-    xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            let resp   = JSON.parse(xhttp.responseText);
-            let signal = resp.rawOffset < 0 ? '-' : '+';
-            let tz     = signal + String(Math.abs(resp.rawOffset)).padStart(2, '0') + '00';
-            ret = tz;
-        }
-    };
-    let point = site.getPoint();
-    let url   = TZ_API.format(point.lat, point.lon, location.protocol);
-    xhttp.open("GET", url, false);
-    xhttp.send();
-    return ret;
 }
 
 function process()

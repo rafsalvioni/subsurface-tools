@@ -19,8 +19,8 @@
         with another data (like GPX, for example). So, we used a trick: add a especial tag in sites/dives to indicates
         timezone used. This script adds / replaces these tags.<br><br>
 
-        For each localized Dive Site, the timezone will be get using GPS information using a public API.
-        Otherwise, the default timezone given will be used. The same for non localized dives.
+        If there isn't a timezone defined in dive or site, we use a timezone basead in site's longitude or
+        browser's timezone.
     </p>
     <label>Put SSRF contents in field below:
     <textarea rows="10" style="width:90%" id="input"></textarea></label>
