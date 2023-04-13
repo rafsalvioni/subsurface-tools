@@ -1,10 +1,11 @@
 import { GpxWriter } from '../lib/gpx.js';
 import { DiveLog } from '../lib/ssrf.js';
 import { download } from '../lib/utils.js';
+import { app } from './app.js';
 
-function sitesToGpx(input)
+function sitesToGpx()
 {
-    let divelog = new DiveLog(input);
+    let divelog = app.getDiveLog();
     let gpx = new GpxWriter();
     
     for (const site of divelog.getSites()) {
@@ -15,27 +16,20 @@ function sitesToGpx(input)
     }
 
     if (gpx.hasContents()) {
-        return gpx.end();
+        return gpx;
     }
     throw 'No localized sites found';
 }
 
 function process()
 {
-    let input = document.getElementById('input').value;
-    let output;
     try {
-        output = sitesToGpx(input);
+        let gpx = sitesToGpx();
+        download(gpx.end(), 'sites.gpx', 'text/xml');
     }
     catch (e) {
-        output = `ERROR: ${e}`;
+        app.error(e);
     }
-    document.getElementById('output').value = output;
 }
 
-document.getElementById('input').addEventListener('change', process);
-document.getElementById('redo').addEventListener('click', process);
-document.getElementById('download').addEventListener('click', () => {
-    let contents = document.getElementById('output').value;
-    download(contents, 'divesites.gpx');
-});
+document.getElementById('op-sites-gpx').addEventListener('click', process);

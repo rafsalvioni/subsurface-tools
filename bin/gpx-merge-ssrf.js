@@ -1,45 +1,44 @@
 import { GpxReader } from '../lib/gpx.js';
-import { DiveLog } from '../lib/ssrf.js';
-import { download } from '../lib/utils.js';
+import { loadFile, app } from './app.js';
 
-function gpxToSsrf(gpx, divelog)
+var gpx;
+
+function gpxToSsrf()
 {
-    for (const dive of divelog) {
+    let diveLog = app.getDiveLog();
+    let ndives = 0;
+    let npois  = 0;
+    for (const dive of diveLog) {
         if (dive.isLocalized()) {
             continue;
         }
         let diveStart = dive.getStart();
         let pos = gpx.getPositionAt(diveStart);
         if (pos) {
+            ndives++;
             dive.setSpot(pos);
         }
     }
     for (const poi of gpx.eachPoi()) {
-        divelog.getSites().getByPosition(poi, true);
+        npois++;
+        diveLog.getSites().getByPosition(poi, true);
     }
-    return divelog.toString();
+    return [ndives, npois];
 }
 
-function process()
+function process(e)
 {
-    let ssrfXml = document.getElementById('ssrf').value ?? '<divelog/>';
-    let gpxXml  = document.getElementById('gpx').value ?? '<gpx/>';
-    let output  = 'ERROR: GPX and SSRF required';
-    try {
-        if (gpxXml && ssrfXml) {
-            output = gpxToSsrf(new GpxReader(gpxXml), new DiveLog(ssrfXml));
+    loadFile(e.target.files[0], (e) => {
+        try {
+            gpx = new GpxReader(e.target.result);
+            let ret = gpxToSsrf();
+            alert(`${ret[0]} dives updated!\n${ret[1]} POIs processed!`);
         }
-    }
-    catch (e) {
-        output = `ERROR: ${e}`;
-    }
-    document.getElementById('output').value = output;
+        catch (e) {
+            gpx = null;
+            app.error(e);
+        }
+    });
 }
 
-document.getElementById('ssrf').addEventListener('change', process);
-document.getElementById('gpx').addEventListener('change', process);
-document.getElementById('redo').addEventListener('click', process);
-document.getElementById('download').addEventListener('click', () => {
-    let contents = document.getElementById('output').value;
-    download(contents, 'dives.ssrf');
-});
+document.getElementById('op-merge-gpx').addEventListener('change', process);

@@ -1,47 +1,45 @@
-import { DiveLog } from '../lib/ssrf.js';
-import { download } from '../lib/utils.js';
+import { app } from './app.js';
 
-function fixTimeZone(input, tz, replace)
+function fixTimeZone(diveLog, tz, replace)
 {
-    let divelog = new DiveLog(input);
-    for (const site of divelog.getSites()) {
+    let total = 0;
+    let count = 0;
+    for (const site of diveLog.getSites()) {
+        total++;
         if (!replace && site.getTimeZone()) {
             continue;
         }
         site.setTimeZone(tz);
+        count++;
     }
-    for (const dive of divelog) {
+    for (const dive of diveLog) {
+        total++;
         if (!replace && dive.getTimeZone()) {
             continue;
         }
         if (!dive.isLocalized()) {
             dive.setTimeZone(tz);
+            count++;
         }
     }
-    return divelog.toString();
+    return [total, count];
 }
 
 function process()
 {
-    let input = document.getElementById('input').value;
-    let output;
     try {
+        let diveLog = app.getDiveLog();
         let tz      = prompt('What TZ do you wanna use as default?', Date.SYSTEM_TZ);
         if (!tz) {
             throw 'TZ is required';
         }
         let replace = confirm('Do you want to replace existant TZs?');
-        output      = fixTimeZone(input, tz, !!replace);
+        let out = fixTimeZone(diveLog, tz, !!replace);
+        alert(`${out[1]}/${out[0]} dive/sites updated!`);
     }
     catch (e) {
-        output = `ERROR: ${e}`;
+        app.error(e);
     }
-    document.getElementById('output').value = output;
 }
 
-document.getElementById('input').addEventListener('change', process);
-document.getElementById('redo').addEventListener('click', process);
-document.getElementById('download').addEventListener('click', () => {
-    let contents = document.getElementById('output').value;
-    download(contents, 'dives-tz.ssrf');
-});
+document.getElementById('op-fix-timezones').addEventListener('click', process);

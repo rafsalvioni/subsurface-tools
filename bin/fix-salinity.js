@@ -1,28 +1,18 @@
-import { DiveLog } from '../lib/ssrf.js';
-import { download } from '../lib/utils.js';
+import { app } from "./app.js";
 
 function process()
 {
-	let input = document.getElementById('input').value;
-	let output;
 	try {
-		let divelog = new DiveLog(input);
+		let divelog = app.getDiveLog()
         let stats   = divelog.fixSaltSalinity();
 		if (stats[0] == 0) {
 			throw `No DCs match`;
 		}
-        output = divelog.toString();
         alert(`${stats[1]}/${stats[0]} DCs data updated!`);
 	}
 	catch (e) {
-		output = `ERROR: ${e}`;
+		app.error(e);
 	}
-	document.getElementById('output').value = output;
 }
 
-document.getElementById('input').addEventListener('change', process);
-document.getElementById('redo').addEventListener('click', process);
-document.getElementById('download').addEventListener('click', () => {
-	let contents = document.getElementById('output').value;
-	download(contents, 'dives-salinity.ssrf');
-});
+document.getElementById('op-fix-salinity').addEventListener('click', process);

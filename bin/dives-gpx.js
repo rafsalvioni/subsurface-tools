@@ -1,10 +1,10 @@
 import { GpxWriter } from '../lib/gpx.js';
-import { DiveLog } from '../lib/ssrf.js';
 import { download } from '../lib/utils.js';
+import { app } from './app.js';
 
-function divesToGpx(input, sample)
+function divesToGpx(sample)
 {
-    let divelog = new DiveLog(input);
+    let divelog = app.getDiveLog();
     let gpx = new GpxWriter();
 
     for (const dive of divelog) {
@@ -36,27 +36,20 @@ function divesToGpx(input, sample)
         }
     }
     if (gpx.hasContents()) {
-        return gpx.end();
+        return gpx;
     }
     throw 'No localized dives found';
 }
 
 function process()
 {
-    let input = document.getElementById('input').value;
-    let output;
     try {
-        output = divesToGpx(input, 900, '-0300');
+        let gpx = divesToGpx(900);
+        download(gpx.end(), 'dives.gpx', 'text/xml');
     }
     catch (e) {
-        output = `ERROR: ${e}`;
+        app.error(e);
     }
-    document.getElementById('output').value = output;
 }
 
-document.getElementById('input').addEventListener('change', process);
-document.getElementById('redo').addEventListener('click', process);
-document.getElementById('download').addEventListener('click', () => {
-    let contents = document.getElementById('output').value;
-    download(contents, 'dives.gpx');
-});
+document.getElementById('op-dives-gpx').addEventListener('click', process);

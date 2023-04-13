@@ -1,4 +1,5 @@
-import { download } from '../lib/utils.js';
+import { DiveLog } from '../lib/ssrf.js';
+import { app } from './app.js';
 
 function ssrfCompact(input)
 {
@@ -44,20 +45,15 @@ function ssrfCompact(input)
 
 function process()
 {
-	let input = document.getElementById('input').value;
+	let diveLog = app.getDiveLog();
 	let output;
 	try {
-		output = ssrfCompact(input);
+		output  = ssrfCompact(diveLog.toString());
+		diveLog = new DiveLog(output);
 	}
 	catch (e) {
-		output = `ERROR: ${e}`;
+		app.error(e);
 	}
-	document.getElementById('output').value = output;
 }
 
-document.getElementById('input').addEventListener('change', process);
-document.getElementById('redo').addEventListener('click', process);
-document.getElementById('download').addEventListener('click', () => {
-	let contents = document.getElementById('output').value;
-	download(contents, 'dives-compact.ssrf');
-});
+document.getElementById('op-ssrf-compact').addEventListener('click', process);

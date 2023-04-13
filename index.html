@@ -1,41 +1,108 @@
-<html>
+<!doctype html>
+<html lang="en">
 <head>
 	<title>Subsurface Tools</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" href="styles.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<script type="module" src="bin/app.js" defer></script>
 </head>
 <body>
-	<nav>
-		<ul>
-			<li>Export
-				<ul>
-					<li><a href="sites-gpx.html">Sites > GPX</a></li>
-					<li><a href="dives-gpx.html">Dives > GPX</a></li>
-				</ul>
-			</li>
-			<li>Import
-				<ul>
-					<li><a href="gpx-merge-ssrf.html">GPX > SSRF</a></li>
-				</ul>
-			</li>
-			<li>Conversion / Fusion
-				<ul>
-					<li><a href="date-fusion.html">Fusion by Date</a></li>
-				</ul>
-			</li>
-			<li>Operations
-				<ul>
-					<li><a href="ssrf-compact.html">Compact Samples</a></li>
-					<li><a href="timezone.html">Fix TimeZones</a></li>
-					<li><a href="fix-serial.html">Fix DC's Serial</a></li>
-					<!-- <li><a href="fix-salinity.html">Fix DC's Salinity</a></li> -->
-				</ul>
-			</li>
-		</ul>
-	</nav>
+<div id="main" class="container">
 	<header>
 		<h1>Subsurface Tools</h1>
+		<p>A set of small tools to manipulate, convert and retrieve data from Subsurface's divelogs and its derived</p>
 	</header>
-	<p>A set of small tools to manipulate, convert and retrieve data from Subsurface's divelogs and its derived</p>
 
+	<section id="ssrf-box">
+		<fieldset>
+			<legend>Subsurface source file</legend>
+			<input type="file" class="btn" name="ssrf" id="ssrf" accept=".ssrf,.xml,text/*">
+			<button id="download" class="btn ssrf-operation hidden">Download</button>
+		</fieldset>
+	</section>
+
+	<section class="ssrf-operation hidden">
+		<table class="table-operation">
+			<caption>Improve / Fix</caption>
+			<tr>
+				<th colspan="2">Compact samples</th>
+			</tr>
+			<tr>
+				<td>Remove needless DC's samples and let file more clean and light</td>
+				<td width="10%"><button class="btn" id="op-ssrf-compact">Do it!</button></td>
+			</tr>
+			<tr>
+				<th colspan="2">Fix TimeZones</th>
+			</tr>
+			<tr>
+				<td>
+					By default, Subsurface doenst store timezones. Is this a issue when we need to compare dive's date and other sources.
+					So, we did a trick: sets a special tag do define timezone. This operation doest it.
+				</td>
+				<td><button class="btn" id="op-fix-timezones">Do it!</button></td>
+			</tr>
+			<tr>
+				<th colspan="2">Fix DC's serial</th>
+			</tr>
+			<tr>
+				<td>
+					Adds DC' serial number in extra information tab, using data for devices fingerprint.
+				</td>
+				<td><button class="btn" id="op-fix-serial">Do it!</button></td>
+			</tr>
+			<tr>
+				<th colspan="2">Fix Salinity</th>
+			</tr>
+			<tr>
+				<td>
+					Until version 5.0.10, Subsurface didnt save salinity from DC when salinity is salt water.
+					This script correct this.
+				</td>
+				<td><button class="btn" id="op-fix-salinity">Do it!</button></td>
+			</tr>
+		</table>
+	</section>
+
+	<section class="ssrf-operation hidden">
+		<table class="table-operation">
+			<caption>Import</caption>
+			<tr>
+				<th colspan="2">GPX</th>
+			</tr>
+			<tr>
+				<td>
+					Try to set dives localization using a GPS track file using dive's start time.
+					If divesite already exists, it will be used. Else, created. It will import GPX POIs too.
+				</td>
+				<td><input type="file" class="btn" id="op-merge-gpx" accept=".gpx"></td>
+			</tr>
+		</table>
+	</section>
+
+	<section class="ssrf-operation hidden">
+		<table class="table-operation">
+			<caption>Export</caption>
+			<tr>
+				<th colspan="2">Dives to GPX</th>
+			</tr>
+			<tr>
+				<td>
+					Generates "fake" GPS tracks using dive's localization, start time and duration.
+				</td>
+				<td width="10%"><button class="btn" id="op-dives-gpx">Download</button></td>
+			</tr>
+			<tr>
+				<th colspan="2">Sites to GPX</th>
+			</tr>
+			<tr>
+				<td>
+					Generates a GPX using all localized divesites as POI.
+				</td>
+				<td><button class="btn" id="op-sites-gpx">Download</button></td>
+			</tr>
+		</table>
+	</section>
+</div>
 </body>
 </html>
