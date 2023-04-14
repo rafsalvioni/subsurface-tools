@@ -1,8 +1,10 @@
 import { GpxReader } from '../lib/gpx.js';
-import { DiveLog } from '../lib/ssrf.js';
 import { download } from '../lib/utils.js';
+import { app, loadFile } from './app.js';
 
 var first;
+var gpx;
+var dates;
 
 function dateFusion(date, gpx, divelog)
 {
@@ -19,6 +21,7 @@ function dateFusion(date, gpx, divelog)
     }
     if (divelog && (tmp = divelog.getDataAt(date))) {
         delete(tmp.sample['time']);
+        tmp.sample['depth'] = Math.rounds(tmp.sample['depth'], 2);
         Object.assign(fus, tmp.sample);
         if (!pos && tmp.dive.isLocalized()) {
             Object.assign(fus, tmp.dive.getSpot());
@@ -46,36 +49,43 @@ function toCsv(objLine, delim=",")
 
 function process()
 {
-    let dates   = document.getElementById('dates').value;
-    let ssrfXml = document.getElementById('ssrf').value ?? '<divelog/>';
-    let gpxXml  = document.getElementById('gpx').value ?? '<gpx/>';
-	let output  = '';
+    let output  = '';
+    let divelog = app.getDiveLog();
 	try {
-        let gpx, divelog;
-        if (gpxXml) {
-            gpx = new GpxReader(gpxXml);
-        }
-        if (ssrfXml) {
-            divelog = new DiveLog(ssrfXml);
-        }
         first = true;
-        for (const dt of dates.trim().split(/\r?\n/)) {
+        for (const dt of dates) {
             let dateTime = Date.create(dt);
             output += dateFusion(dateTime, gpx, divelog);
             first = false;
         }
+        download(output, 'date-detail.csv', 'text/csv');
 	}
 	catch (e) {
-		output = `ERROR: ${e}`;
+		app.error(e);
 	}
-	document.getElementById('output').value = output;
 }
 
-document.getElementById('dates').addEventListener('change', process);
-document.getElementById('ssrf').addEventListener('change', process);
-document.getElementById('gpx').addEventListener('change', process);
-document.getElementById('redo').addEventListener('click', process);
-document.getElementById('download').addEventListener('click', () => {
-	let contents = document.getElementById('output').value;
-	download(contents, 'date-fusion.csv');
-});
+function loadFiles(e)
+{
+    var loaded = 0;
+    var n      = e.target.files.length;
+    var gpx    = dates = null;
+
+    for (const f of e.target.files) {
+        loadFile(f, (e) => {
+            let ext = f.name.replace(/.+?\.(.+)$/, '$1');
+            if (ext == 'gpx') {
+                gpx = new GpxReader(e.target.result);
+            }
+            else {
+                dates = e.target.result.trim().split(/\r?\n/);
+            }
+            loaded++;
+            if (loaded == n) {
+                process();
+            }
+        });
+    }
+}
+
+document.getElementById('op-date-detail').addEventListener('change', loadFiles);

@@ -72,10 +72,26 @@
 			</tr>
 			<tr>
 				<td>
-					Try to set dives localization using a GPS track file using dive's start time.
+					Try to set dives localization from a GPS track file using dive's start time.
 					If divesite already exists, it will be used. Else, created. It will import GPX POIs too.
 				</td>
 				<td><input type="file" class="btn" id="op-merge-gpx" accept=".gpx"></td>
+			</tr>
+		</table>
+	</section>
+
+	<section class="ssrf-operation hidden">
+		<table class="table-operation">
+			<caption>Merge</caption>
+			<tr>
+				<th colspan="2">Date Details</th>
+			</tr>
+			<tr>
+				<td>
+					Using a set of dates, a GPX (optional) and loaded divelog, this script returns a csv with
+					latitude, longitude, altitude, depth and temp at a instant. You must given 1 file at least
+				</td>
+				<td><input type="file" class="btn" id="op-date-detail" accept=".txt,.csv,.gpx" multiple></td>
 			</tr>
 		</table>
 	</section>
@@ -88,7 +104,8 @@
 			</tr>
 			<tr>
 				<td>
-					Generates "fake" GPS tracks using dive's localization, start time and duration.
+					Generates "fake" GPS tracks using dive's localization, start time and duration. Only dives
+					with GPS information will be used.
 				</td>
 				<td width="10%"><button class="btn" id="op-dives-gpx">Download</button></td>
 			</tr>
@@ -97,7 +114,8 @@
 			</tr>
 			<tr>
 				<td>
-					Generates a GPX using all localized divesites as POI.
+					Generates a GPX using all localized divesites as POI. Only divesites with GPS information
+					will be used.
 				</td>
 				<td><button class="btn" id="op-sites-gpx">Download</button></td>
 			</tr>
