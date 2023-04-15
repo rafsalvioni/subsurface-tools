@@ -24,65 +24,65 @@
 
 	<section class="ssrf-operation hidden">
 		<table class="table-operation">
-			<caption>Improve / Fix</caption>
+			<caption>Modify</caption>
 			<tr>
 				<th colspan="2">Compact samples</th>
 			</tr>
 			<tr>
 				<td>Remove needless DC's samples and let file more clean and light</td>
-				<td width="10%"><button class="btn" id="op-ssrf-compact">Do it!</button></td>
+				<td width="10%"><button class="btn" id="op-ssrf-compact">Execute</button></td>
 			</tr>
 			<tr>
-				<th colspan="2">Fix TimeZones</th>
-			</tr>
-			<tr>
-				<td>
-					By default, Subsurface doenst store timezones. Is this a issue when we need to compare dive's date and other sources.
-					So, we did a trick: sets a special tag do define timezone. This operation doest it.
-				</td>
-				<td><button class="btn" id="op-fix-timezones">Do it!</button></td>
-			</tr>
-			<tr>
-				<th colspan="2">Fix DC's serial</th>
-			</tr>
-			<tr>
-				<td>
-					Adds DC' serial number in extra information tab, using data for devices fingerprint.
-				</td>
-				<td><button class="btn" id="op-fix-serial">Do it!</button></td>
-			</tr>
-			<tr>
-				<th colspan="2">Fix Salinity</th>
-			</tr>
-			<tr>
-				<td>
-					Until version 5.0.10, Subsurface didnt save salinity from DC when salinity is salt water.
-					This script correct this.
-				</td>
-				<td><button class="btn" id="op-fix-salinity">Do it!</button></td>
-			</tr>
-		</table>
-	</section>
-
-	<section class="ssrf-operation hidden">
-		<table class="table-operation">
-			<caption>Import</caption>
-			<tr>
-				<th colspan="2">GPX</th>
+				<th colspan="2">GPX merge</th>
 			</tr>
 			<tr>
 				<td>
 					Try to set dives localization from a GPS track file using dive's start time.
 					If divesite already exists, it will be used. Else, created. It will import GPX POIs too.
 				</td>
-				<td><input type="file" class="btn" id="op-merge-gpx" accept=".gpx"></td>
+				<td>
+					<label class="file-upload btn">
+						<input type="file" class="btn" id="op-merge-gpx" accept=".gpx">
+						Upload
+					</label>
+				</td>
+			</tr>
+			<tr>
+				<th colspan="2">Fix TimeZones</th>
+			</tr>
+			<tr>
+				<td>
+					By default, Subsurface doenst store timezones. This is a issue when we need to compare dive's date and other sources.
+					So, we did a trick: sets a special tag in sites/dives do define theirs timezone. Without it, timezone will be
+					guessed using GPS latitude or system's TZ
+				</td>
+				<td><button class="btn" id="op-fix-timezones">Execute</button></td>
+			</tr>
+			<tr>
+				<th colspan="2">Fix DC's serial</th>
+			</tr>
+			<tr>
+				<td>
+					Adds the DC's serial number in extra information tab, using stored devices' data in logbook.
+				</td>
+				<td><button class="btn" id="op-fix-serial">Execute</button></td>
+			</tr>
+			<tr>
+				<th colspan="2">Fix Salinity</th>
+			</tr>
+			<tr>
+				<td>
+					Until version 5.0.10, Subsurface didnt save salinity from DC when it is salt water.
+					This script add these losted salinities.
+				</td>
+				<td><button class="btn" id="op-fix-salinity">Execute</button></td>
 			</tr>
 		</table>
 	</section>
 
 	<section class="ssrf-operation hidden">
 		<table class="table-operation">
-			<caption>Merge</caption>
+			<caption>Mix</caption>
 			<tr>
 				<th colspan="2">Date Details</th>
 			</tr>
@@ -91,7 +91,12 @@
 					Using a set of dates, a GPX (optional) and loaded divelog, this script returns a csv with
 					latitude, longitude, altitude, depth and temp at a instant. You must given 1 file at least
 				</td>
-				<td><input type="file" class="btn" id="op-date-detail" accept=".txt,.csv,.gpx" multiple></td>
+				<td width="10%">
+					<label class="file-upload btn">
+						<input type="file" class="btn" id="op-date-detail" accept=".txt,.csv,.gpx" multiple>
+						Upload
+					</label>
+				</td>
 			</tr>
 		</table>
 	</section>

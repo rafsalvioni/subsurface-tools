@@ -56,3 +56,10 @@ section {
     font-weight: bold;
     cursor: pointer;
 }
+
+.file-upload {
+    font-size: 80%;
+}
+.file-upload input[type=file] {
+    display: none;
+}
