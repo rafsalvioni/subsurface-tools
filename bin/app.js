@@ -1,5 +1,4 @@
 import { DiveLog } from '../lib/ssrf.js';
-import { download } from '../lib/utils.js';
 import './ssrf-compact.js';
 import './timezone.js';
 import './fix-serial.js';
