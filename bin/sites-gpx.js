@@ -1,7 +1,5 @@
 import { GpxWriter } from '../lib/gpx.js';
-import { DiveLog } from '../lib/ssrf.js';
-import { download } from '../lib/utils.js';
-import { app } from './app.js';
+import { app, download } from './app.js';
 
 function sitesToGpx()
 {

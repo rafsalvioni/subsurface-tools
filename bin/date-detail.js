@@ -1,6 +1,5 @@
 import { GpxReader } from '../lib/gpx.js';
-import { download } from '../lib/utils.js';
-import { app, loadFile } from './app.js';
+import { app, loadFile, download } from './app.js';
 
 var first;
 var gpx;

@@ -9,6 +9,27 @@ import './sites-gpx.js';
 import './dives-gpx.js';
 import './date-detail.js';
 
+/**
+ * Emulates a file download.
+ * 
+ * @param {string} content 
+ * @param {string} fileName 
+ * @param {string} contentType 
+ */
+function download(content, fileName, contentType='text/xml')
+{
+    if (/^text\//i.test(contentType)) {
+        content = unescape(encodeURIComponent(content));
+        contentType += ';charset=utf-8';
+    }
+    const url = `data:${contentType};base64,` + btoa(content);
+    const a = document.createElement('a');
+    a.style.display = 'none';
+    a.href = url;
+    a.download = fileName;
+    a.click();
+}
+
 function loadFile(file, fLoad)
 {
     const fr = new FileReader();
@@ -91,4 +112,4 @@ class App
 }
 
 const app = new App();
-export {app, loadFile};
+export {app, loadFile, download};
