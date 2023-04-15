@@ -69,9 +69,6 @@ class App
         if (this.#diveLog) {
             let name = this.fileName;
             download(this.#diveLog.toString(), name, 'text/xml');
-            this.#diveLog = null;
-            this.#file = null;
-            this.#showOperations(false);
         }
         else {
             this.error('No SSRF loaded');
