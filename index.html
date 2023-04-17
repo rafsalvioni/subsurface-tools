@@ -1,131 +1,132 @@
 <!doctype html>
 <html lang="en">
 <head>
-	<title>Subsurface Tools</title>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<link rel="stylesheet" href="styles.css">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<script type="module" src="bin/app.js" defer></script>
+    <title>Subsurface Tools</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" href="styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4030211934923080" crossorigin="anonymous"></script>
+    <script type="module" src="bin/app.js" defer></script>
 </head>
 <body>
 <div id="main" class="container">
-	<header>
-		<h1>Subsurface Tools</h1>
-		<p>A set of small tools to manipulate, convert and retrieve data from Subsurface's divelogs and its derived</p>
-	</header>
+    <header>
+        <h1>Subsurface Tools</h1>
+        <p>A set of small tools to manipulate, convert and retrieve data from Subsurface's divelogs and its derived</p>
+    </header>
 
-	<section id="ssrf-box">
-		<fieldset>
-			<legend>Subsurface source file</legend>
-			<input type="file" class="btn" name="ssrf" id="ssrf" accept=".ssrf,.xml,text/*">
-			<button id="download" class="btn ssrf-operation hidden">Download</button>
-		</fieldset>
-	</section>
+    <section id="ssrf-box">
+        <fieldset>
+            <legend>Subsurface source file</legend>
+            <input type="file" class="btn" name="ssrf" id="ssrf" accept=".ssrf,.xml,text/*">
+            <button id="download" class="btn ssrf-operation hidden">Download</button>
+        </fieldset>
+    </section>
 
-	<section class="ssrf-operation hidden">
-		<table class="table-operation">
-			<caption>Modify</caption>
-			<tr>
-				<th colspan="2">Compact samples</th>
-			</tr>
-			<tr>
-				<td>Remove needless DC's samples and let file more clean and light</td>
-				<td width="10%"><button class="btn" id="op-ssrf-compact">Execute</button></td>
-			</tr>
-			<tr>
-				<th colspan="2">GPX merge</th>
-			</tr>
-			<tr>
-				<td>
-					Try to set dives localization from a GPS track file using dive's start time.
-					If divesite already exists, it will be used. Else, created. It will import GPX POIs too.
-				</td>
-				<td>
-					<label class="file-upload btn">
-						<input type="file" class="btn" id="op-merge-gpx" accept=".gpx">
-						Upload
-					</label>
-				</td>
-			</tr>
-			<tr>
-				<th colspan="2">Fix TimeZones</th>
-			</tr>
-			<tr>
-				<td>
-					By default, Subsurface doenst store timezones. This is a issue when we need to compare dive's date and other sources.
-					So, we did a trick: sets a special tag in sites/dives do define theirs timezone. Without it, timezone will be
-					guessed using GPS latitude or system's TZ
-				</td>
-				<td><button class="btn" id="op-fix-timezones">Execute</button></td>
-			</tr>
-			<tr>
-				<th colspan="2">Fix DC's serial</th>
-			</tr>
-			<tr>
-				<td>
-					Adds the DC's serial number in extra information tab, using stored devices' data in logbook.
-				</td>
-				<td><button class="btn" id="op-fix-serial">Execute</button></td>
-			</tr>
-			<tr>
-				<th colspan="2">Fix Salinity</th>
-			</tr>
-			<tr>
-				<td>
-					Until version 5.0.10, Subsurface didnt save salinity from DC when it is salt water.
-					This script add these losted salinities.
-				</td>
-				<td><button class="btn" id="op-fix-salinity">Execute</button></td>
-			</tr>
-		</table>
-	</section>
+    <section class="ssrf-operation hidden">
+        <table class="table-operation">
+            <caption>Modify</caption>
+            <tr>
+                <th colspan="2">Compact samples</th>
+            </tr>
+            <tr>
+                <td>Remove needless DC's samples and let file more clean and light</td>
+                <td width="10%"><button class="btn" id="op-ssrf-compact">Execute</button></td>
+            </tr>
+            <tr>
+                <th colspan="2">GPX merge</th>
+            </tr>
+            <tr>
+                <td>
+                    Try to set dives localization from a GPS track file using dive's start time.
+                    If divesite already exists, it will be used. Else, created. It will import GPX POIs too.
+                </td>
+                <td>
+                    <label class="file-upload btn">
+                        <input type="file" class="btn" id="op-merge-gpx" accept=".gpx">
+                        Upload
+                    </label>
+                </td>
+            </tr>
+            <tr>
+                <th colspan="2">Fix TimeZones</th>
+            </tr>
+            <tr>
+                <td>
+                    By default, Subsurface doenst store timezones. This is a issue when we need to compare dive's date and other sources.
+                    So, we did a trick: sets a special tag in sites/dives do define theirs timezone. Without it, timezone will be
+                    guessed using GPS latitude or system's TZ
+                </td>
+                <td><button class="btn" id="op-fix-timezones">Execute</button></td>
+            </tr>
+            <tr>
+                <th colspan="2">Fix DC's serial</th>
+            </tr>
+            <tr>
+                <td>
+                    Adds the DC's serial number in extra information tab, using stored devices' data in logbook.
+                </td>
+                <td><button class="btn" id="op-fix-serial">Execute</button></td>
+            </tr>
+            <tr>
+                <th colspan="2">Fix Salinity</th>
+            </tr>
+            <tr>
+                <td>
+                    Until version 5.0.10, Subsurface didnt save salinity from DC when it is salt water.
+                    This script add these losted salinities.
+                </td>
+                <td><button class="btn" id="op-fix-salinity">Execute</button></td>
+            </tr>
+        </table>
+    </section>
 
-	<section class="ssrf-operation hidden">
-		<table class="table-operation">
-			<caption>Mix</caption>
-			<tr>
-				<th colspan="2">Date Details</th>
-			</tr>
-			<tr>
-				<td>
-					Using a set of dates, a GPX (optional) and loaded divelog, this script returns a csv with
-					latitude, longitude, altitude, depth and temp at a instant. You must given 1 file at least
-				</td>
-				<td width="10%">
-					<label class="file-upload btn">
-						<input type="file" class="btn" id="op-date-detail" accept=".txt,.csv,.gpx" multiple>
-						Upload
-					</label>
-				</td>
-			</tr>
-		</table>
-	</section>
+    <section class="ssrf-operation hidden">
+        <table class="table-operation">
+            <caption>Mix</caption>
+            <tr>
+                <th colspan="2">Date Details</th>
+            </tr>
+            <tr>
+                <td>
+                    Using a set of dates, a GPX (optional) and loaded divelog, this script returns a csv with
+                    latitude, longitude, altitude, depth and temp at a instant. You must given 1 file at least
+                </td>
+                <td width="10%">
+                    <label class="file-upload btn">
+                        <input type="file" class="btn" id="op-date-detail" accept=".txt,.csv,.gpx" multiple>
+                        Upload
+                    </label>
+                </td>
+            </tr>
+        </table>
+    </section>
 
-	<section class="ssrf-operation hidden">
-		<table class="table-operation">
-			<caption>Export</caption>
-			<tr>
-				<th colspan="2">Dives to GPX</th>
-			</tr>
-			<tr>
-				<td>
-					Generates "fake" GPS tracks using dive's localization, start time and duration. Only dives
-					with GPS information will be used.
-				</td>
-				<td width="10%"><button class="btn" id="op-dives-gpx">Download</button></td>
-			</tr>
-			<tr>
-				<th colspan="2">Sites to GPX</th>
-			</tr>
-			<tr>
-				<td>
-					Generates a GPX using all localized divesites as POI. Only divesites with GPS information
-					will be used.
-				</td>
-				<td><button class="btn" id="op-sites-gpx">Download</button></td>
-			</tr>
-		</table>
-	</section>
+    <section class="ssrf-operation hidden">
+        <table class="table-operation">
+            <caption>Export</caption>
+            <tr>
+                <th colspan="2">Dives to GPX</th>
+            </tr>
+            <tr>
+                <td>
+                    Generates "fake" GPS tracks using dive's localization, start time and duration. Only dives
+                    with GPS information will be used.
+                </td>
+                <td width="10%"><button class="btn" id="op-dives-gpx">Download</button></td>
+            </tr>
+            <tr>
+                <th colspan="2">Sites to GPX</th>
+            </tr>
+            <tr>
+                <td>
+                    Generates a GPX using all localized divesites as POI. Only divesites with GPS information
+                    will be used.
+                </td>
+                <td><button class="btn" id="op-sites-gpx">Download</button></td>
+            </tr>
+        </table>
+    </section>
 </div>
 </body>
 </html>
