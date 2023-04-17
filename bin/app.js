@@ -7,6 +7,7 @@ import './gpx-merge-ssrf.js';
 import './sites-gpx.js';
 import './dives-gpx.js';
 import './date-detail.js';
+import './gpx-depth.js';
 
 /**
  * Emulates a file download.
