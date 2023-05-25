@@ -68,16 +68,21 @@ function loadFiles(e)
 {
     var loaded = 0;
     var n      = e.target.files.length;
-    var gpx    = dates = null;
+    gpx        = null;
+    dates      = [];
 
     for (const f of e.target.files) {
         loadFile(f, (e) => {
             let ext = f.name.replace(/.+?\.(.+)$/, '$1');
             if (ext == 'gpx') {
+                if (gpx) {
+                    alert(`${f.name} ignored... Just 1 GPX accepted by turn`);
+                }
                 gpx = new GpxReader(e.target.result);
             }
             else {
-                dates = e.target.result.trim().split(/\r?\n/);
+                let tmp = e.target.result.trim().split(/\r?\n/);
+                dates   = dates.concat(tmp);
             }
             loaded++;
             if (loaded == n) {
