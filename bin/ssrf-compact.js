@@ -7,7 +7,7 @@ function ssrfCompact(input)
 	let total = 0;
     
     // Remove unneeded depth samples...
-	let regex = /(<sample time='[^']+' depth='([^']+)'[^>]+>)(\s*<sample time='[^']+' depth='\2' *\/>)+(\s*<sample time='[^']+' depth='\2'[^>]+>)/ig;
+	let regex = /(<sample time=['"][^'"]+['"] depth=['"]([^'"]+)['"][^>]+>)(\s*<sample time=['"][^'"]+['"] depth=['"]\2['"] *\/>)+(\s*<sample time=['"][^'"]+['"] depth=['"]\2['"][^>]+>)/ig;
 	do {
 		count = 0;
 		input = input.replaceAll(regex, function()
@@ -20,7 +20,7 @@ function ssrfCompact(input)
 	} while (count > 0);
 	
     // Remove unneeded depth 0.0 on dive end
-	regex = /(<sample time='[^']+' depth='0\.0 m'[^>]+>)(\s*<sample time='[^']+' depth='0\.[^']+'[^>]+>)+(\s*<\/divecomputer>)/ig;
+	regex = /(<sample time=['"][^'"]+['"] depth=['"]0\.0 m['"][^>]+>)(\s*<sample time=['"][^'"]+['"] depth=['"]0\.[^'"]+['"][^>]+>)+(\s*<\/divecomputer>)/ig;
 	do {
 		count = 0;
 		input = input.replaceAll(regex, function()
@@ -50,6 +50,7 @@ function process()
 	try {
 		output  = ssrfCompact(diveLog.toString());
 		diveLog = new DiveLog(output);
+		app.setDiveLog(diveLog);
 	}
 	catch (e) {
 		app.error(e);

@@ -55,6 +55,11 @@ class App
         });
     }
 
+    setDiveLog(diveLog)
+    {
+        this.#diveLog = diveLog;
+    }
+
     getDiveLog()
     {
         return this.#diveLog;
